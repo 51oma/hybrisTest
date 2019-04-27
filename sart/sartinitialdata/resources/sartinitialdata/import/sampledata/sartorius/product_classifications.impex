@@ -1,0 +1,12 @@
+$productCatalog = electronicsProductCatalog
+$catalogVersion = catalogversion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+
+INSERT_UPDATE Product2Classification; source(code, $catalogVersion)[unique = true]; target(name)[unique = true]
+; 23355  ; Primary Biologics
+; 23355  ; General Membrane
+; 23355  ; General Filter
+; 23355  ; Primary Connectivity
+
+; 898503 ; Primary Biologics
+; 898503 ; General Membrane
+; 898503 ; General Filter New
