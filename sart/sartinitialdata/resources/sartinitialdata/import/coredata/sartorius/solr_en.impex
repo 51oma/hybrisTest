@@ -1,0 +1,9 @@
+
+$solrIndexedType=electronicsProductType
+
+# Language
+$lang=en
+
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; displayName[lang = $lang]
+ ; $solrIndexedType ; classifications ; "Sartorius Classifications"
+

@@ -1,0 +1,17 @@
+$solrIndexedType=electronicsProductType
+
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); multiValue[default = true]; facet[default = true]; facetType(code); facetSort(code); priority; visible; fieldValueProvider; ftsPhraseQuery[default=false];ftsPhraseQueryBoost;ftsQuery[default=false];ftsQueryBoost;ftsFuzzyQuery[default=false];ftsFuzzyQueryBoost
+; $solrIndexedType ; classifications ; string ; ; ; MultiSelectOr ; Alpha ; 9999 ; true ; sartoriusClassificationsValueProvider ; true ; 1000 ; false ; 0 ; false ; 0
+
+INSERT_UPDATE SolrSearchQueryProperty;indexedProperty(name, solrIndexedType(identifier))[unique=true];searchQueryTemplate(name, indexedType(identifier))[unique=true][default=DEFAULT:$solrIndexedType];priority;facet;ftsPhraseQuery[default=false];ftsPhraseQueryBoost;ftsQuery[default=false];ftsQueryBoost;ftsFuzzyQuery[default=false];ftsFuzzyQueryBoost;includeInResponse[default=true]
+; classifications:$solrIndexedType ; ; 9999 ; true ; true ; 1000 ; false ; 0 ; false ; 0 ;
+
+# Disable default search conditions
+INSERT_UPDATE SolrSearchQueryProperty;indexedProperty(name, solrIndexedType(identifier))[unique=true];searchQueryTemplate(name, indexedType(identifier))[unique=true][default=DEFAULT:$solrIndexedType];ftsPhraseQuery[default=false];ftsQuery[default=false];ftsFuzzyQuery[default=false];includeInResponse[default=true]
+; keywords:$solrIndexedType
+; manufacturerName:$solrIndexedType
+; description:$solrIndexedType
+; categoryName:$solrIndexedType
+; name:$solrIndexedType
+; code:$solrIndexedType
+; ean:$solrIndexedType

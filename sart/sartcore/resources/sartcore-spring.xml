@@ -551,4 +551,13 @@
 		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
 		<property name="ticketBusinessService" ref="ticketBusinessService"/>
 	</bean>
+
+	<!-- Sartorius beans -->
+	<bean id="sartoriusClassificationsValueProvider" class="com.sart.core.search.solrfacetsearch.provider.impl.SartoriusClassificationsValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="classificationsQualifier" value="classifications" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+
 </beans>
