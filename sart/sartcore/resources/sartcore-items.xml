@@ -34,6 +34,18 @@
         </enumtype>
     </enumtypes>
 
+  <relations>
+    <relation localized="false" code="Product2Classification">
+      <deployment table="product2class" typecode="10200"/>
+      <sourceElement type="Product" qualifier="products" cardinality="many">
+        <modifiers optional="true"/>
+      </sourceElement>
+      <targetElement type="Classification" qualifier="classifications" cardinality="many">
+        <modifiers optional="true"/>
+      </targetElement>
+    </relation>
+  </relations>
+
     <itemtypes>
 
         <!-- Add your item definitions here -->
@@ -109,6 +121,21 @@
                     </attribute>
                 </attributes>
             </itemtype>
+
+          <itemtype code="Classification" autocreate="true" generate="true">
+            <deployment table="classification" typecode="10100"/>
+            <attributes>
+              <attribute qualifier="name" type="java.lang.String">
+                <persistence type="property"/>
+                <description>Classification name of products</description>
+              </attribute>
+            </attributes>
+            <indexes>
+              <index name="nameIndex" unique="true">
+                <key attribute="name"/>
+              </index>
+            </indexes>
+          </itemtype>
         </typegroup>
 
     </itemtypes>
