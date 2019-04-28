@@ -17,7 +17,8 @@
 <requires-extension name="acceleratorwebservicesaddon"/>
 <requires-extension name="commercefacades"/>
 		<requires-extension name="commercewebservicescommons"/>
-	
+		<requires-extension name="sartfacades"/>
+
 		<coremodule generated="true" manager="de.hybris.platform.jalo.extension.GenericManager" packageroot="com.sart"/>
 
 
