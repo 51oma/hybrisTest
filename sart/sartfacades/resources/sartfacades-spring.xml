@@ -189,4 +189,15 @@
 	</bean>
 
 	<bean id="genderData" class="com.sart.facades.product.data.GenderData" scope="prototype"/>
+
+	<!-- Sartorius beans -->
+	<bean id="sartoriusClassificationFacade" class="com.sart.facades.classifications.impl.DefaultSartoriusClassificationFacade"/>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productConverter"/>
+		<property name="add" ref="classificationsProductPopulator"/>
+	</bean>
+
+	<bean id="classificationsProductPopulator" class="com.sart.facades.populators.ClassificationsProductPopulator" />
+
 </beans>
