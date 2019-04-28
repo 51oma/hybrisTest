@@ -163,4 +163,9 @@
 				  type="java.util.List&lt;de.hybris.platform.commercefacades.consent.data.ConsentTemplateData>"/>
 	</bean>
 
+	<!-- Sartorius beans -->
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO">
+		<property name="sartoriusClassifications" type="java.util.List&lt;String>"/>
+	</bean>
+
 </beans>

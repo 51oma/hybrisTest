@@ -2,6 +2,13 @@ package com.sart.v2.controller;
 
 import com.sart.facades.classifications.SartoriusClassificationFacade;
 import de.hybris.platform.catalog.CatalogVersionService;
+import de.hybris.platform.commercefacades.product.ProductFacade;
+import de.hybris.platform.commercefacades.product.ProductOption;
+import de.hybris.platform.commercefacades.product.data.ProductData;
+import de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.Resource;
 import org.apache.log4j.Logger;
@@ -30,6 +37,11 @@ public class ClassificationsController extends BaseController {
 
   @Resource
   private CatalogVersionService catalogVersionService;
+
+  @Resource
+  private ProductFacade productFacade;
+
+  private static final Collection<ProductOption> DEFAULT_PRODUCT_OPTIONS = new ArrayList<>(Collections.singletonList(ProductOption.BASIC));
 
   /**
    * Update product classifications
@@ -80,4 +92,36 @@ public class ClassificationsController extends BaseController {
     }
     sartoriusClassificationFacade.create(classification);
   }
+
+  /**
+   * Get All Classifications.
+   *
+   * @return List of classification names
+   */
+  @RequestMapping(method = RequestMethod.GET)
+  @ResponseBody
+  public List<String> getAllClassifications() {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("invoke getAllClassifications webservice method");
+    }
+    return sartoriusClassificationFacade.getAllClassifications();
+  }
+
+  /**
+   * Get Classifications for product.
+   *
+   * @param productCode product code
+   *
+   * @return product with list of classifications
+   */
+  @RequestMapping(value = "/product/{productCode}", method = RequestMethod.GET)
+  @ResponseBody
+  public ProductWsDTO getClassificationsForProduct(@PathVariable final String productCode) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("getClassificationsForProduct: product code=" + sanitize(productCode));
+    }
+    ProductData productData = productFacade.getProductForCodeAndOptions(productCode, DEFAULT_PRODUCT_OPTIONS);
+    return getDataMapper().map(productData, ProductWsDTO.class, DEFAULT_FIELD_SET);
+  }
+
 }

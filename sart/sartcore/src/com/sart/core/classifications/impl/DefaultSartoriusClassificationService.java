@@ -67,6 +67,11 @@ public class DefaultSartoriusClassificationService implements SartoriusClassific
     }
   }
 
+  @Override
+  public List<ClassificationModel> getAllClassifications() {
+    return sartoriusClassificationDAO.getAllClassifications();
+  }
+
   private void validateClassificationName(String name) {
     Preconditions.checkArgument(StringUtils.isNotBlank(name), "Classification name must not be null");
     Preconditions.checkArgument(name.split(" ").length == 2,

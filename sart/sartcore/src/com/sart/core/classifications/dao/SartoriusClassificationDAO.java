@@ -1,6 +1,7 @@
 package com.sart.core.classifications.dao;
 
 import com.sart.core.model.ClassificationModel;
+import java.util.List;
 
 /**
  * DAO for product's classifications.
@@ -16,4 +17,12 @@ public interface SartoriusClassificationDAO {
    * @return classification model
    */
   ClassificationModel getByName(String name);
+
+  /**
+   * Get all classifications.
+   *
+   * @return return all products classifications
+   */
+  List<ClassificationModel> getAllClassifications();
+
 }

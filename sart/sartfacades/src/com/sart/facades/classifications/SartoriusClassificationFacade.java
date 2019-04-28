@@ -30,4 +30,11 @@ public interface SartoriusClassificationFacade {
    * @param classificationName classification name
    */
   void create(String classificationName);
+
+  /**
+   * Get all classifications.
+   *
+   * @return return all products classifications
+   */
+  List<String> getAllClassifications();
 }

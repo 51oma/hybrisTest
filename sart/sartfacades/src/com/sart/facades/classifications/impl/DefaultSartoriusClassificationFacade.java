@@ -1,9 +1,12 @@
 package com.sart.facades.classifications.impl;
 
 import com.sart.core.classifications.SartoriusClassificationService;
+import com.sart.core.model.ClassificationModel;
 import com.sart.facades.classifications.SartoriusClassificationFacade;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.Resource;
+import org.apache.commons.collections4.CollectionUtils;
 
 /**
  * Facade for product's classifications.
@@ -28,5 +31,11 @@ public class DefaultSartoriusClassificationFacade implements SartoriusClassifica
   @Override
   public void create(String classificationName) {
     sartoriusClassificationService.create(classificationName);
+  }
+
+  @Override
+  public List<String> getAllClassifications() {
+    List<ClassificationModel> allClassifications = sartoriusClassificationService.getAllClassifications();
+    return CollectionUtils.emptyIfNull(allClassifications).stream().map(ClassificationModel::getName).collect(Collectors.toList());
   }
 }

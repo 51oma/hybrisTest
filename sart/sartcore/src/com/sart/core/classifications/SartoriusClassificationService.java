@@ -36,4 +36,11 @@ public interface SartoriusClassificationService {
    * @param name classification name
    */
   void create(String name);
+
+  /**
+   * Get all classifications.
+   *
+   * @return return all products classifications
+   */
+  List<ClassificationModel> getAllClassifications();
 }
