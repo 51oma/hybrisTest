@@ -11,6 +11,7 @@
 			<div class="col-md-6 col-lg-4">
 				<div class="tab-container">
 					<product:productDetailsClassifications product="${product}" />
+					<product:productDetailsSartoriusClassifications product="${product}" />
 				</div>
 			</div>
 		</div>
