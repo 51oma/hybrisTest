@@ -9,4 +9,4 @@ INSERT_UPDATE Product2Classification; source(code, $catalogVersion)[unique = tru
 
 ; 898503 ; Primary Biologics
 ; 898503 ; General Membrane
-; 898503 ; General Filter New
+; 898503 ; General FilterNew
