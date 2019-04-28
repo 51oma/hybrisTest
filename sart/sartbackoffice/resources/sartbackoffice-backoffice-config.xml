@@ -10,6 +10,10 @@
  license agreement you entered into with SAP.
 -->
 <config xmlns="http://www.hybris.com/cockpit/config"
+	xmlns:list="http://www.hybris.com/cockpitng/component/listView" xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+	xmlns:n="http://www.hybris.com/cockpitng/config/explorertree"
+	xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+	xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
 	xmlns:na="http://www.hybris.com/cockpitng/config/notifications">
 
 	<context merge-by="module" component="editorareaactions" type="Consignment">
@@ -28,6 +32,68 @@
 	            <na:message>hmc.action.confirmpickup.success</na:message>
 	        </na:notifications>
 	   </na:notification-area>
+	</context>
+
+	<!-- Sartorius config -->
+	<context component="explorer-tree">
+		<context merge-by="module" principal="admin,customersupportadministratorrole">
+			<n:explorer-tree>
+				<n:navigation-node id="hmc_treenode_catalog" merge-mode="append">
+					<n:type-node code="Classification" id="typenode_classification"/>
+				</n:navigation-node>
+			</n:explorer-tree>
+		</context>
+	</context>
+
+	<context type="Classification" component="listview">
+		<list:list-view>
+			<list:column qualifier="name"/>
+		</list:list-view>
+	</context>
+
+	<context type="Classification" component="cs-simple-search">
+		<simple-search:simple-search>
+			<simple-search:field name="name"/>
+		</simple-search:simple-search>
+	</context>
+
+	<context merge-by="type" parent="GenericItem" type="Classification" component="editor-area" >
+		<editorArea:editorArea name="">
+			<editorArea:essentials>
+				<editorArea:essentialSection name="hmc.essential">
+					<editorArea:attribute qualifier="name"/>
+				</editorArea:essentialSection>
+			</editorArea:essentials>
+		</editorArea:editorArea>
+	</context>
+
+	<context type="Classification" component="base" >
+		<y:base>
+			<y:labels>
+				<y:label>name</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context component="create-wizard" type="Classification">
+		<wz:flow id="ClassificationWizard" title="newclassification.title">
+			<wz:prepare id="classificationPrepare">
+				<wz:initialize property="newEntry" type="Classification"/>
+			</wz:prepare>
+			<wz:step id="step1" label="newclassification.label">
+				<wz:content id="step1.content">
+					<wz:property-list root="newEntry">
+						<wz:property qualifier="name"/>
+					</wz:property-list>
+				</wz:content>
+				<wz:navigation id="step1.navigation">
+					<wz:cancel/>
+					<wz:done visible="!#empty(newEntry.name)">
+						<wz:save property="newEntry"/>
+					</wz:done>
+				</wz:navigation>
+			</wz:step>
+		</wz:flow>
 	</context>
 
 </config>
