@@ -1,0 +1,7 @@
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;backofficeproductmanagergroup;;;;;;;;
+
+# read-inly access to product classifications
+;;;;Product.classifications;+;-;-;-;-;
+$END_USERRIGHTS;;;;;

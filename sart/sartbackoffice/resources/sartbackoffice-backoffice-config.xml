@@ -96,4 +96,25 @@
 		</wz:flow>
 	</context>
 
+	<context merge-by="type" type="Product" component="editor-area">
+		<editorArea:editorArea>
+			<editorArea:tab name="hmc.tab.product.categorysystem" merge-mode="append">
+				<editorArea:section name="hmc.section.product.productincategory">
+					<editorArea:attribute qualifier="classifications"/>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context merge-by="type" parent="GenericItem" type="Product" component="editor-area" module="pcmbackoffice"
+		principal="backofficeproductmanagergroup,backofficeproductadministratorgroup">
+		<editorArea:editorArea name="" xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab name="hmc.tab.product.categorysystem" merge-mode="append">
+				<editorArea:section name="hmc.section.product.productincategory">
+					<editorArea:attribute qualifier="classifications"/>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
 </config>
