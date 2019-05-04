@@ -559,7 +559,11 @@
 		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
 	</bean>
 
-	<bean id="sartoriusClassificationService" class="com.sart.core.classifications.impl.DefaultSartoriusClassificationService"/>
+	<bean id="sartoriusClassificationService" class="com.sart.core.classifications.impl.DefaultSartoriusClassificationService">
+		<property name="productService" ref="productService"/>
+		<property name="sartoriusClassificationDAO" ref="sartoriusClassificationDAO"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
 
 	<bean id="sartoriusClassificationDAO" class="com.sart.core.classifications.dao.impl.DefaultSartoriusClassificationDAO" parent="abstractItemDao" />
 
