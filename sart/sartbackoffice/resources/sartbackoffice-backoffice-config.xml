@@ -10,7 +10,13 @@
  license agreement you entered into with SAP.
 -->
 <config xmlns="http://www.hybris.com/cockpit/config"
-	xmlns:na="http://www.hybris.com/cockpitng/config/notifications">
+		xmlns:n="http://www.hybris.com/cockpitng/config/explorertree"
+		xmlns:ea="http://www.hybris.com/cockpitng/component/editorArea"
+		xmlns:lv="http://www.hybris.com/cockpitng/component/listView"
+		xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch"
+		xmlns:na="http://www.hybris.com/cockpitng/config/notifications"
+		xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+		xmlns:ss="http://www.hybris.com/cockpitng/config/simplesearch">
 
 	<context merge-by="module" component="editorareaactions" type="Consignment">
 		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
@@ -28,6 +34,150 @@
 	            <na:message>hmc.action.confirmpickup.success</na:message>
 	        </na:notifications>
 	   </na:notification-area>
+	</context>
+
+	<!-- Accenture config -->
+	<context component="explorer-tree">
+		<context merge-by="module" principal="admin,customersupportadministratorrole">
+			<n:explorer-tree>
+				<n:navigation-node id="hmc_tree_root_transactions">
+					<n:type-node code="AccBatch" id="hmc_treenode_batches"/>
+					<n:type-node code="Transaction" id="hmc_treenode_transactions"/>
+					<n:type-node code="TransactionDescription" id="hmc_treenode_transaction_descriptions"/>
+				</n:navigation-node>
+			</n:explorer-tree>
+		</context>
+	</context>
+
+	<context type="AccBatch">
+		<context component="listview">
+			<lv:list-view>
+				<lv:column qualifier="filename"/>
+				<lv:column qualifier="startDate"/>
+				<lv:column qualifier="endDate"/>
+			</lv:list-view>
+		</context>
+		<context component="editor-area" merge-by="type" parent="GenericItem">
+			<ea:editorArea>
+				<ea:essentials>
+					<ea:essentialSection name="hmc.essential">
+						<ea:attribute qualifier="filename" />
+						<ea:attribute qualifier="startDate" />
+						<ea:attribute qualifier="endDate" />
+						<ea:attribute qualifier="totalNumberOfRows" />
+						<ea:attribute qualifier="numberOfNewTrans" />
+						<ea:attribute qualifier="transactionDescriptions" />
+						<ea:attribute qualifier="transactions" />
+					</ea:essentialSection>
+				</ea:essentials>
+			</ea:editorArea>
+		</context>
+		<context component="simple-search" parent="GenericItem">
+			<ss:simple-search>
+				<ss:field name="filename"/>
+			</ss:simple-search>
+		</context>
+		<context component="advanced-search" parent="GenericItem">
+			<as:advanced-search>
+				<as:field-list>
+					<as:field name="filename" selected="true"/>
+					<as:field name="startDate" selected="true"/>
+					<as:field name="endDate" selected="true"/>
+				</as:field-list>
+			</as:advanced-search>
+		</context>
+		<context component="base" merge-by="type" parent="GenericItem">
+			<y:base>
+				<y:labels>
+					<y:label>filename</y:label>
+				</y:labels>
+			</y:base>
+		</context>
+	</context>
+
+	<context type="Transaction">
+		<context component="listview">
+			<lv:list-view>
+				<lv:column qualifier="transactionId"/>
+				<lv:column qualifier="transactionDate"/>
+				<lv:column qualifier="amount"/>
+			</lv:list-view>
+		</context>
+		<context component="editor-area" merge-by="type" parent="GenericItem">
+			<ea:editorArea>
+				<ea:essentials>
+					<ea:essentialSection name="hmc.essential">
+						<ea:attribute qualifier="transactionId" />
+						<ea:attribute qualifier="transactionDate" />
+						<ea:attribute qualifier="amount" />
+						<ea:attribute qualifier="batch" />
+						<ea:attribute qualifier="description" />
+					</ea:essentialSection>
+				</ea:essentials>
+			</ea:editorArea>
+		</context>
+		<context component="simple-search" parent="GenericItem">
+			<ss:simple-search>
+				<ss:field name="transactionId"/>
+			</ss:simple-search>
+		</context>
+		<context component="advanced-search" parent="GenericItem">
+			<as:advanced-search>
+				<as:field-list>
+					<as:field name="transactionId" selected="true"/>
+					<as:field name="transactionDate" selected="true"/>
+					<as:field name="amount" selected="true"/>
+					<as:field name="batch" selected="true"/>
+					<as:field name="description" selected="true"/>
+				</as:field-list>
+			</as:advanced-search>
+		</context>
+		<context component="base" merge-by="type" parent="GenericItem">
+			<y:base>
+				<y:labels>
+					<y:label>transactionId</y:label>
+				</y:labels>
+			</y:base>
+		</context>
+	</context>
+
+	<context type="TransactionDescription">
+		<context component="listview">
+			<lv:list-view>
+				<lv:column qualifier="description"/>
+			</lv:list-view>
+		</context>
+		<context component="editor-area" merge-by="type" parent="GenericItem">
+			<ea:editorArea>
+				<ea:essentials>
+					<ea:essentialSection name="hmc.essential">
+						<ea:attribute qualifier="description" />
+						<ea:attribute qualifier="batch" />
+						<ea:attribute qualifier="transactions" />
+					</ea:essentialSection>
+				</ea:essentials>
+			</ea:editorArea>
+		</context>
+		<context component="simple-search" parent="GenericItem">
+			<ss:simple-search>
+				<ss:field name="description"/>
+			</ss:simple-search>
+		</context>
+		<context component="advanced-search" parent="GenericItem">
+			<as:advanced-search>
+				<as:field-list>
+					<as:field name="description" selected="true"/>
+					<as:field name="batch" selected="true"/>
+				</as:field-list>
+			</as:advanced-search>
+		</context>
+		<context component="base" merge-by="type" parent="GenericItem">
+			<y:base>
+				<y:labels>
+					<y:label>description</y:label>
+				</y:labels>
+			</y:base>
+		</context>
 	</context>
 
 </config>
