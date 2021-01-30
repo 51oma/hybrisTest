@@ -19,4 +19,15 @@
 		<property name="code" type="String"/>
 		<property name="name" type="String"/>
 	</bean>
+
+	<bean class="com.sart.facades.transaction.data.TransactionData">
+		<property name="transactionId" type="java.lang.Integer"/>
+		<property name="transactionDate" type="java.util.Date"/>
+		<property name="amount" type="java.lang.Long"/>
+		<property name="description" type="java.lang.String"/>
+		<property name="startDate" type="java.util.Date"/>
+		<property name="endDate" type="java.util.Date"/>
+		<property name="fileName" type="java.lang.String"/>
+	</bean>
+
 </beans>
