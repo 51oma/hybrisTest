@@ -34,9 +34,92 @@
         </enumtype>
     </enumtypes>
 
+    <relations>
+        <relation localized="false" code="Batch2TranDescr">
+            <sourceElement type="AccBatch" cardinality="one" qualifier="batch">
+                <modifiers initial="true" optional="true"/>
+            </sourceElement>
+            <targetElement type="TransactionDescription" cardinality="many" qualifier="transactionDescriptions">
+                <modifiers initial="true" optional="true"/>
+            </targetElement>
+        </relation>
+        <relation localized="false" code="Batch2Transaction">
+            <sourceElement type="AccBatch" cardinality="one" qualifier="batch">
+                <modifiers initial="true" optional="true"/>
+            </sourceElement>
+            <targetElement type="Transaction" cardinality="many" qualifier="transaction">
+                <modifiers initial="true" optional="true"/>
+            </targetElement>
+        </relation>
+        <relation localized="false" code="Transaction2Description">
+            <sourceElement type="TransactionDescription" cardinality="one" qualifier="description">
+                <modifiers initial="true" optional="true"/>
+            </sourceElement>
+            <targetElement type="Transaction" cardinality="many" qualifier="transactions">
+                <modifiers initial="true" optional="true"/>
+            </targetElement>
+        </relation>
+    </relations>
+
     <itemtypes>
 
         <!-- Add your item definitions here -->
+
+        <typegroup name="Transactions">
+
+            <itemtype code="AccBatch">
+                <deployment table="batches" typecode="19000"/>
+                <attributes>
+                    <attribute qualifier="filename" type="java.lang.String">
+                        <modifiers unique="true" optional="false" initial="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="totalNumberOfRows" type="java.lang.Integer">
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="numberOfNewTrans" type="java.lang.Integer">
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="startDate" type="java.util.Date">
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="endDate" type="java.util.Date">
+                        <persistence type="property"/>
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="Transaction">
+                <deployment table="transactions" typecode="19001"/>
+                <attributes>
+                    <attribute qualifier="transactionId" type="java.lang.Integer">
+                        <modifiers unique="true"/>
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="transactionDate" type="java.util.Date">
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="amount" type="java.lang.Long">
+                        <persistence type="property"/>
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="TransactionDescription">
+                <deployment table="transactiondescs" typecode="19002"/>
+                <attributes>
+                    <attribute qualifier="description" type="java.lang.String">
+                        <modifiers unique="true"/>
+                        <persistence type="property">
+                            <columntype>
+                                <value>HYBRIS.LONG_STRING</value>
+                            </columntype>
+                        </persistence>
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+        </typegroup>
 
 
         <!-- TypeGroups are for structure of this file only -->
