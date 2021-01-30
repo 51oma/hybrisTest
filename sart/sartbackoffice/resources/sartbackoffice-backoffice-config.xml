@@ -58,7 +58,7 @@
 			</lv:list-view>
 		</context>
 		<context component="editor-area" merge-by="type" parent="GenericItem">
-			<ea:editorArea>
+			<ea:editorArea xmlns:ea="http://www.hybris.com/cockpitng/component/editorArea">
 				<ea:essentials>
 					<ea:essentialSection name="hmc.essential">
 						<ea:attribute qualifier="filename" />
@@ -104,7 +104,7 @@
 			</lv:list-view>
 		</context>
 		<context component="editor-area" merge-by="type" parent="GenericItem">
-			<ea:editorArea>
+			<ea:editorArea xmlns:ea="http://www.hybris.com/cockpitng/component/editorArea">
 				<ea:essentials>
 					<ea:essentialSection name="hmc.essential">
 						<ea:attribute qualifier="transactionId" />
@@ -135,7 +135,7 @@
 		<context component="base" merge-by="type" parent="GenericItem">
 			<y:base>
 				<y:labels>
-					<y:label>transactionId</y:label>
+					<y:label>'id=[' + transactionId + '], amount=[' + amount + '], date=[' + transactionDate + ']'</y:label>
 				</y:labels>
 			</y:base>
 		</context>
@@ -148,7 +148,7 @@
 			</lv:list-view>
 		</context>
 		<context component="editor-area" merge-by="type" parent="GenericItem">
-			<ea:editorArea>
+			<ea:editorArea xmlns:ea="http://www.hybris.com/cockpitng/component/editorArea">
 				<ea:essentials>
 					<ea:essentialSection name="hmc.essential">
 						<ea:attribute qualifier="description" />
