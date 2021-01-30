@@ -551,4 +551,13 @@
 		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
 		<property name="ticketBusinessService" ref="ticketBusinessService"/>
 	</bean>
+
+	<bean id="transactionService" class="com.sart.core.transaction.service.impl.DefaultTransactionService">
+		<constructor-arg ref="transactionDao"/>
+	</bean>
+
+	<bean id="transactionDao" class="com.sart.core.transaction.dao.impl.DefaultTransactionDao" parent="abstractItemDao" />
+	<bean id="transactionDescriptionDao" class="com.sart.core.transaction.dao.impl.DefaultTransactionDescriptionDao" parent="abstractItemDao" />
+	<bean id="batchDao" class="com.sart.core.transaction.dao.impl.DefaultBatchDao" parent="abstractItemDao" />
+
 </beans>

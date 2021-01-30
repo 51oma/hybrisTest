@@ -14,6 +14,7 @@
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:file="http://www.springframework.org/schema/integration/file"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration
@@ -28,9 +29,20 @@
 	<bean id="baseDirectoryElectronics" class="java.lang.String">
 		<constructor-arg value="#{baseDirectory}/${tenantId}/electronics" />
 	</bean>
+
+	<bean id="accFileOrderComparator"
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.FileOrderComparator">
+		<property name="prefixPriority">
+			<map>
+				<!-- default priority is 0; -->
+				<entry key="transaction" value="1" />
+			</map>
+		</property>
+	</bean>
+
 	<!-- 1) Scan for files -->
 	<file:inbound-channel-adapter id="batchFilesElectronics" directory="#{baseDirectoryElectronics}"
-		filename-regex="^(.*)-(\d+)\.csv" comparator="fileOrderComparator">
+		filename-regex="^(.*)-(\d+)\.csv" comparator="accFileOrderComparator">
 		<int:poller fixed-rate="1000" />
 	</file:inbound-channel-adapter>
 
@@ -43,5 +55,40 @@
 		<property name="catalog" value="electronicsProductCatalog" />
 		<property name="net" value="false" />
 		<property name="storeBaseDirectory" ref="baseDirectoryElectronics" />
+	</bean>
+
+	<alias name="accBatchRunnerTask" alias="batchRunnerTask"/>
+	<bean id="accBatchRunnerTask" class="com.sart.core.dataimport.task.AbstractAccImpexRunnerTask">
+		<constructor-arg ref="modelService" />
+		<property name="sessionService" ref="sessionService" />
+		<property name="importService" ref="importService" />
+		<lookup-method name="getImportConfig" bean="importConfig" />
+	</bean>
+
+	<!--===================================-->
+	<!-- Accenture transformer converters mappings -->
+	<!--===================================-->
+	<bean id="batchTransactionConverterMapping"
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+		  p:mapping="transaction"
+		  p:converter-ref="batchTransactionConverter"/>
+
+	<!--===================================-->
+	<!-- Accenture specific converters -->
+	<!--===================================-->
+	<bean id="batchTransactionConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>
+				$filePath=$SOURCE_FILE$
+				$file = @file[translator=com.sart.core.dataimport.batch.traslator.BatchImpexTranslator]
+				$description = @description[translator=com.sart.core.dataimport.batch.traslator.TransactionDescriptionImpexTranslator]
+				# Use INSERT for skipping duplicates
+				INSERT Transaction;transactionId[unique=true];transactionDate[dateformat=dd/M/yyyy];$description;amount;$file
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{+1};{+2};{+3};$filePath;{S}</value>
+		</property>
+		<property name="type" value="Transaction"/>
 	</bean>
 </beans>
